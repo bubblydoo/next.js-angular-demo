@@ -20,7 +20,8 @@ const nextJsConfig = {
   ],
   experimental: {
     runtime: 'experimental-edge',
-    esmExternals: 'loose'
+    esmExternals: 'loose',
+    forceSwcTransforms: true,
   },
   webpack: (config, { nextRuntime }) => {
     if (!global.angularCompilerCliLinkerPlugin) throw new Error("No linker plugin available");
