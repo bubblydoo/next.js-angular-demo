@@ -9,17 +9,20 @@ It is configured to lazily load any Angular component. Angular SSR is not suppor
 #### Loading an Angular component
 
 ```tsx
-export default function Index() {
-  const componentLoader = useCallback(
-    () => import("angular-module/dist/demo").then((m) => m.DemoComponent),
-    []
-  );
+const angularComponentLoader =
+  typeof IS_SERVER !== 'undefined' && IS_SERVER
+    ? () => Promise.reject(new LoadedAngularInServerError())
+    : () => import('angular-module/dist/demo').then((m) => m.DemoComponent);
 
+export default function Index() {
   return (
-    <LazyAngularWrapper
-      fallback={<div>Loading Angular Component...</div>}
-      componentLoader={componentLoader}
-    />
+    <Suspense fallback={<p>Loading Angular Component...</p>}>
+      <SuspendingLazyAngularWrapper
+        name="demo"
+        serverFallback={<p>Loading Angular Component...</p>}
+        componentLoader={angularComponentLoader}
+      />
+    </Suspense>
   );
 }
 ```
@@ -56,3 +59,7 @@ For this reason we also set `compilerOptions.preserveSymlinks: true` and `config
 ### `The Angular Compiler requires TypeScript >=4.4.2 and <4.6.0 but 4.6.2 was found instead.`
 
 This is also because of a version mismatch of `typescript` between `packages/angular-module` or `apps/web`. Ensure that they're using the same version.
+
+### Usage with `@angular/animations`
+
+Hot reloading with `@angular/animations` seems buggy because element removal works differently.

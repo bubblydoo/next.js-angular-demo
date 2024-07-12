@@ -15,11 +15,9 @@ const nextJsConfig = {
     "@angular/platform-browser",
     "@angular/common",
     "@angular/router",
-    "@angular/forms",
-    "@angular/animations"
+    "@angular/forms"
   ],
   experimental: {
-    runtime: 'experimental-edge',
     esmExternals: 'loose',
     forceSwcTransforms: true,
   },

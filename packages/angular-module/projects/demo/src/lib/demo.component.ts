@@ -5,7 +5,7 @@ import { DemoService } from './demo.service';
   selector: 'demo',
   template: `
     <p>Angular works!</p>
-    <button mat-raised-button color="primary" (click)="service.add$.next(1)">Count in Angular</button>
+    <button color="primary" (click)="service.add$.next(1)">Count in Angular</button>
   `,
   styles: [
     `

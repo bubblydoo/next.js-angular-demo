@@ -1,0 +1,11 @@
+{
+  "extends": "tsconfig/react-library.json",
+  "include": ["src"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "lib": ["ES2015", "dom", "dom.iterable"],
+    "rootDir": ".",
+    "outDir": "dist",
+    "types": ["react/experimental"]
+  }
+}

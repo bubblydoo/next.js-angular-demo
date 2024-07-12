@@ -1,9 +1,10 @@
+import { zoneConfig } from '@rx-angular/cdk/zone-configurations';
+
 export default function configureZonejs() {
-  (window as any).__Zone_disable_requestAnimationFrame = true;
-  (window as any).__Zone_disable_on_property = true;
-  (window as any).__zone_symbol__UNPATCHED_EVENTS = [
-    "scroll",
-    "mousemove",
-    "resize",
-  ];
+  zoneConfig.global.disable.requestAnimationFrame();
+  zoneConfig.global.disable.timers();
+  zoneConfig.global.disable.ZoneAwarePromise();
+  zoneConfig.unpatchXHR();
+  zoneConfig.events.disable.UNPATCHED_EVENTS(['scroll', 'mousemove', 'resize']);
+  zoneConfig.useUnpatchedPassiveScrollEvents();
 }
